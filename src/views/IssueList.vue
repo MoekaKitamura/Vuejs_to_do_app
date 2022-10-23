@@ -2,22 +2,14 @@
   <div>
     <el-button type="success" round @click="getIssues()">issue取得</el-button>
     <el-row :gutter="12">
-      <el-col :span="12" v-for="( issue, index ) in issues" :key="issue.id">
-        <el-card class="box-card" shadow="hover" style="margin: 5px 0;">
-          <el-row :gutter="12">
-            <el-col :span="21">{{ issue.title }}</el-col>
-            <el-col :span="3">
-              <el-button @click="closeIssue(index)" type="success" icon="el-icon-check" circle></el-button>
-            </el-col>
-          </el-row>
-        </el-card>
-      </el-col>
+      <TodoItem v-for="( issue, index ) in issues" :key="issue.id" :issue="issue.title" :index="index" @closeIssue="closeIssue"/>
     </el-row>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import TodoItem from '@/components/TodoItem';
 
 const client = axios.create({
   baseURL: `${process.env.VUE_APP_GITHUB_ENDPOINT}`,
@@ -30,6 +22,9 @@ const client = axios.create({
 
 export default {
   name: 'IssueList',
+  components: {
+    TodoItem
+  },
   data() {
     return {
       issues: [],
@@ -54,8 +49,8 @@ export default {
       })
     },
   },
-  created() {
-    this.getIssues();
-  }
+  // created() {
+  //   this.getIssues();
+  // }
 }
 </script>
