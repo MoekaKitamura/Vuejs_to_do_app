@@ -16,5 +16,11 @@
 <script>
 export default {
   name: 'TodoItem',
+  props: ['todo'],
+  methods: {
+    removeTodo(){
+      this.$emit('removeToDo');
+    }
+  },
 }
 </script>
