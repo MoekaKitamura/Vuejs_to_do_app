@@ -53,6 +53,9 @@ export default {
           this.issues.splice(index, 1)
       })
     },
+  },
+  created() {
+    this.getIssues();
   }
 }
 </script>
