@@ -1,14 +1,11 @@
 <template>
   <div>
     <h1>TodoとIssueリスト</h1>
-    <!-- todo入力フォーム -->
     <form @submit.prevent="addTodo()">
       <el-input placeholder="todo" v-model="todo"></el-input>
     </form>
     <el-row :gutter="12">
-      <!-- todo表示エリア -->
       <TodoItem v-for="( todo, index ) in todos" :key="index" :todo="todo" @removeToDo="removeTodo"/>
-      <!-- issue表示エリア -->
       <TodoItem v-for="( issue, index ) in issues" :key="issue.id" :issue="issue.title" :index="index" @closeIssue="closeIssue" />
     </el-row>
   </div>
@@ -40,7 +37,6 @@ export default {
     }
   },
   methods: {
-    // ここからtodoの管理
     addTodo(){
       this.todos.push(this.todo);
       this.todo= '';
@@ -48,7 +44,6 @@ export default {
     removeTodo(index){
       this.todos.splice(index, 1);
     },
-    // ここからissueの管理
     closeIssue(index){
       const target = this.issues[index];
       client.patch(`/issues/${target.number}`,
