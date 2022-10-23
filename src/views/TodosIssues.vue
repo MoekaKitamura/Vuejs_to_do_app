@@ -25,7 +25,7 @@
 
 <script>
 import axios from 'axios';
-import TodoItem from '@/components/TodoItem.vue';
+import TodoItem from '@/components/TodoItem';
 
 const client = axios.create({
   baseURL: `${process.env.VUE_APP_GITHUB_ENDPOINT}`,
@@ -38,6 +38,9 @@ const client = axios.create({
 
 export default {
   name: 'TodosIssues',
+  components: {
+    TodoItem
+  },
   data () {
     return {
       todo: '',
@@ -59,7 +62,7 @@ export default {
       const target = this.issues[index];
       client.patch(`/issues/${target.number}`,
           {
-            state: "closed"
+            state: 'closed'
           },
         )
         .then(() => {
@@ -75,9 +78,6 @@ export default {
   },
   created() {
     this.getIssues();
-  },
-  components: {
-    TodoItem,
   }
 }
 </script>
